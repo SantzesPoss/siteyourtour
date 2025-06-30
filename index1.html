@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Tour Transfer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: #f8f9fa; }
+        .container { max-width: 1200px; }
+        .header { background: transparent; color: #fff; padding: 10px 0; position: absolute; width: 100%; top: 0; }
+        .header a { color: #d4ae37; margin-left: 15px; text-decoration: none; }
+        footer { background: transparent; color: #fff; padding: 10px 0; position: fixed; bottom: 0; width: 100%; }
+        .content-wrapper { padding-bottom: 60px; }
+        #paymentSection { margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; background: #fff; }
+        .alert-success-light { background-color: #d4edda; border-color: #c3e6cb; color: #155724; }
+        .alert-danger { background-color: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="site-logo">
+                <a href="#" style="font-size: 24px; font-weight: bold;">Your Tour Transfer</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 pt-5 content-wrapper">
+        <h2 class="mb-4">Explore Your Options</h2>
+        <div id="simplybook-widget"></div>
+        <script src="https://widget.simplybook.me/v2/widget.js"></script>
+        <script>
+            new SimplybookWidget({
+                "widget_type": "iframe",
+                "url": "https://yourcompanyname.simplybook.me",
+                "theme": "default",
+                "timeline": "modern",
+                "datepicker": "top_calendar"
+            });
+        </script>
+
+        <form id="optionsForm">
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <label for="serviceType">Service Type:</label>
+                    <select id="serviceType" name="serviceType" class="form-control" required>
+                        <option value="" disabled selected>Select Service</option>
+                        <option value="tour">Tour</option>
+                        <option value="transfer">Transfer</option>
+                        <option value="telescope">Telescope Experience</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tour Section -->
+            <div id="tourSection" class="form-section">
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label for="people">Passengers:</label>
+                        <select id="people" name="people" class="form-control" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="tourDuration">Duration:</label>
+                        <select id="tourDuration" name="tourDuration" class="form-control" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="4">4 Hours</option>
+                            <option value="6">6 Hours</option>
+                            <option value="8">8 Hours</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Telescope Experience Section -->
+            <div id="telescopeSection" class="form-section">
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label for="telescopePeople">Passengers:</label>
+                        <select id="telescopePeople" name="telescopePeople" class="form-control" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transfer Section -->
+            <div id="transferSection" class="form-section">
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label for="transferPeople">Passengers:</label>
+                        <select id="transferPeople" name="transferPeople" class="form-control" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="departure">Departure:</label>
+                        <select id="departure" name="departure" class="form-control" required>
+                            <option value="" disabled selected>Select Departure</option>
+                            <optgroup label="Route 1">
+                                <option value="Airport" data-coords="37.08112513720107,25.3697055833444">Airport</option>
+                                <option value="Port" data-coords="37.107515850620494,25.373641890404436">Port</option>
+                                <option value="Chora Naxos" data-coords="37.102127580330546,25.37586429147783">Chora Naxos</option>
+                                <option value="Galanado" data-coords="37.07486764013382,25.41068296356036">Galanado</option>
+                                <option value="Sagri" data-coords="37.041769200003415,25.438531623281325">Sagri</option>
+                                <option value="Damalas" data-coords="37.0512515727224,25.4694867536797">Damalas</option>
+                                <option value="Vourvouria" data-coords="37.05755342215686,25.476670142587537">Vourvouria</option>
+                                <option value="Damarionas" data-coords="37.0522790836429,25.480148256371702">Damarionas</option>
+                                <option value="Chalki" data-coords="37.063221213972554,25.482342901343568">Chalki</option>
+                                <option value="Monitsia" data-coords="37.06801539064361,25.482008753711657">Monitsia</option>
+                                <option value="Akadimi" data-coords="37.06299433912874,25.486427064856127">Akadimi</option>
+                                <option value="Kaloxylos" data-coords="37.06532201541285,25.489023494376834">Kaloxylos</option>
+                                <option value="Keramio" data-coords="37.05861176637497,25.490795897581393">Keramio</option>
+                                <option value="Filoti" data-coords="37.05172827591322,25.497945066022982">Filoti</option>
+                                <option value="Danakos" data-coords="37.04815559973343,25.525527056962797">Danakos</option>
+                                <option value="Apeiranthos" data-coords="37.07108530329629,25.520851582645342">Apeiranthos</option>
+                                <option value="Keramoti" data-coords="37.10879492347779,25.516466196000675">Keramoti</option>
+                                <option value="Koronos" data-coords="37.118203342015704,25.535081056871736">Koronos</option>
+                                <option value="Skado" data-coords="37.12619496395752,25.538342623205917">Skado</option>
+                                <option value="Mesi" data-coords="37.14804265244181,25.55302081588756">Mesi</option>
+                                <option value="Komiaki" data-coords="37.146634813437885,25.528692821271154">Komiaki</option>
+                                <option value="Apollonas" data-coords="37.182193081065414,25.550916780399174">Apollonas</option>
+                            </optgroup>
+                            <optgroup label="Route 2">
+                                <option value="Chalki" data-coords="37.063221213972554,25.482342901343568">Chalki</option>
+                                <option value="Moni" data-coords="37.082006956541235,25.498068154840965">Moni</option>
+                                <option value="Kinidaros" data-coords="37.10134759678461,25.479526519758362">Kinidaros</option>
+                                <option value="Sifones" data-coords="37.096636824585836,25.513590574260245">Sifones</option>
+                                <option value="Keramoti" data-coords="37.10879492347779,25.516466196000675">Keramoti</option>
+                            </optgroup>
+                            <optgroup label="Route 3">
+                                <option value="Chora Naxos" data-coords="37.10210664540318,25.375848330333373">Chora Naxos</option>
+                                <option value="Galini" data-coords="37.11799554002449,25.42477726935911">Galini</option>
+                                <option value="Eggares" data-coords="37.1164037171101,25.43497386211665">Eggares</option>
+                                <option value="Moni Faneromenis" data-coords="37.145007689016644,25.46491601583885">Moni Faneromenis</option>
+                                <option value="Chilia Vrysi" data-coords="37.15593865123663,25.47296047207285">Chilia Vrysi</option>
+                                <option value="Abram" data-coords="37.17292839092015,25.4804436102493">Abram</option>
+                                <option value="Pyrgos Agias" data-coords="37.18528306671102,25.519030679609912">Pyrgos Agias</option>
+                                <option value="Apollonas" data-coords="37.182193081065414,25.550916780399174">Apollonas</option>
+                            </optgroup>
+                            <optgroup label="Route 4">
+                                <option value="Chora Naxos" data-coords="37.102127580330546,25.37586429147783">Chora Naxos</option>
+                                <option value="Kato Potamia" data-coords="37.06746287960237,25.434406399718338">Kato Potamia</option>
+                                <option value="Mesi Potamia" data-coords="37.068525176364304,25.44363978088685">Mesi Potamia</option>
+                                <option value="Pano Potamia" data-coords="37.06897384946167,25.44927120207885">Pano Potamia</option>
+                                <option value="Xeimaros" data-coords="37.06158067395422,25.470138415666685">Xeimaros</option>
+                                <option value="Tsikalario" data-coords="37.06295119276365,25.472005605680625">Tsikalario</option>
+                                <option value="Chalki" data-coords="37.063221213972554,25.482342901343568">Chalki</option>
+                            </optgroup>
+                            <optgroup label="Other Villages">
+                                <option value="Glynado" data-coords="37.071375073897315,25.401774644834592">Glynado</option>
+                                <option value="Vivlos" data-coords="37.05789127788363,25.407680869093983">Vivlos (Tripodes)</option>
+                                <option value="Agios Arsenios" data-coords="37.06155771147037,25.390977308409724">Agios Arsenios</option>
+                                <option value="Agios Thalalaios" data-coords="37.0968978287206,25.419960021955713">Agios Thalalaios</option>
+                                <option value="Koyroynoxori" data-coords="37.09444361478557,25.442250959592663">Koyroynoxori</option>
+                                <option value="Melanes" data-coords="37.089879911571614,25.437629309286514">Melanes</option>
+                            </optgroup>
+                            <optgroup label="Beaches from Chora to Pyrgaki">
+                                <option value="Agios Georgios" data-coords="37.097037,25.375510">Agios Georgios</option>
+                                <option value="Agios Prokopios" data-coords="37.075008,25.350124">Agios Prokopios</option>
+                                <option value="Agia Anna" data-coords="37.069133,25.354932">Agia Anna</option>
+                                <option value="Plaka" data-coords="37.050278,25.370514">Plaka</option>
+                                <option value="Orkos" data-coords="37.027803,25.371152">Orkos</option>
+                                <option value="Mikri Vigla" data-coords="37.022023,25.371573">Mikri Vigla</option>
+                                <option value="Kastraki" data-coords="37.018963,25.374929">Kastraki</option>
+                                <option value="Glyfada" data-coords="36.996687,25.390679">Glyfada</option>
+                                <option value="Hawai" data-coords="36.979606,25.387162">Hawai</option>
+                                <option value="Mikro Alyko" data-coords="36.976814,25.386465">Mikro Alyko</option>
+                                <option value="Alyko" data-coords="36.978595,25.390343">Alyko</option>
+                                <option value="Pyrgaki" data-coords="36.977390,25.400795">Pyrgaki</option>
+                                <option value="Psili Ammos" data-coords="36.974222,25.405558">Psili Ammos</option>
+                            </optgroup>
+                            <optgroup label="Eastern Beaches">
+                                <option value="Azalas" data-coords="37.087663,25.591780">Azalas</option>
+                                <option value="Moutsouna" data-coords="37.077945,25.586885">Moutsouna</option>
+                                <option value="Ligaridia" data-coords="37.059324,25.583607">Ligaridia</option>
+                                <option value="Marathitis" data-coords="37.016921,25.570987">Marathitis</option>
+                                <option value="Psili Ammos" data-coords="37.014237,25.568236">Psili Ammos</option>
+                                <option value="Kleidos" data-coords="36.986889,25.559744">Kleidos</option>
+                                <option value="Panermos" data-coords="36.958731,25.538855">Panermos</option>
+                            </optgroup>
+                            <optgroup label="Other Beaches">
+                                <option value="Apollonas" data-coords="37.179283,25.552437">Apollonas</option>
+                                <option value="Kalantos" data-coords="36.936506,25.473537">Kalantos</option>
+                                <option value="Agiasos" data-coords="36.965753,25.425914">Agiasos</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="destination">Destination:</label>
+                        <select id="destination" name="destination" class="form-control" required>
+                            <option value="" disabled selected>Select Destination</option>
+                            <optgroup label="Route 1">
+                                <option value="Airport" data-coords="37.08112513720107,25.3697055833444">Airport</option>
+                                <option value="Port" data-coords="37.107515850620494,25.373641890404436">Port</option>
+                                <option value="Chora Naxos" data-coords="37.102127580330546,25.37586429147783">Chora Naxos</option>
+                                <option value="Galanado" data-coords="37.07486764013382,25.41068296356036">Galanado</option>
+                                <option value="Sagri" data-coords="37.041769200003415,25.438531623281325">Sagri</option>
+                                <option value="Damalas" data-coords="37.0512515727224,25.4694867536797">Damalas</option>
+                                <option value="Vourvouria" data-coords="37.05755342215686,25.476670142587537">Vourvouria</option>
+                                <option value="Damarionas" data-coords="37.0522790836429,25.480148256371702">Damarionas</option>
+                                <option value="Chalki" data-coords="37.063221213972554,25.482342901343568">Chalki</option>
+                                <option value="Monitsia" data-coords="37.06801539064361,25.482008753711657">Monitsia</option>
+                                <option value="Akadimi" data-coords="37.06299433912874,25.486427064856127">Akadimi</option>
+                                <option value="Kaloxylos" data-coords="37.06532201541285,25.489023494376834">Kaloxylos</option>
+                                <option value="Keramio" data-coords="37.05861176637497,25.490795897581393">Keramio</option>
+                                <option value="Filoti" data-coords="37.05172827591322,25.497945066022982">Filoti</option>
+                                <option value="Danakos" data-coords="37.04815559973343,25.525527056962797">Danakos</option>
+                                <option value="Apeiranthos" data-coords="37.07108530329629,25.520851582645342">Apeiranthos</option>
+                                <option value="Keramoti" data-coords="37.10879492347779,25.516466196000675">Keramoti</option>
+                                <option value="Koronos" data-coords="37.118203342015704,25.535081056871736">Koronos</option>
+                                <option value="Skado" data-coords="37.12619496395752,25.538342623205917">Skado</option>
+                                <option value="Mesi" data-coords="37.14804265244181,25.55302081588756">Mesi</option>
+                                <option value="Komiaki" data-coords="37.146634813437885,25.528692821271154">Komiaki</option>
+                                <option value="Apollonas" data-coords="37.182193081065414,25.550916780399174">Apollonas</option>
+                            </optgroup>
+                            <optgroup label="Route 2">
+                                <option value="Chalki" data-coords="37.063221213972554,25.482342901343568">Chalki</option>
+                                <option value="Moni" data-coords="37.082006956541235,25.498068154840965">Moni</option>
+                                <option value="Kinidaros" data-coords="37.10134759678461,25.479526519758362">Kinidaros</option>
+                                <option value="Sifones" data-coords="37.096636824585836,25.513590574260245">Sifones</option>
+                                <option value="Keramoti" data-coords="37.10879492347779,25.516466196000675">Keramoti</option>
+                            </optgroup>
+                            <optgroup label="Route 3">
+                                <option value="Chora Naxos" data-coords="37.10210664540318,25.375848330333373">Chora Naxos</option>
+                                <option value="Galini" data-coords="37.11799554002449,25.42477726935911">Galini</option>
+                                <option value="Eggares" data-coords="37.1164037171101,25.43497386211665">Eggares</option>
+                                <option value="Moni Faneromenis" data-coords="37.145007689016644,25.46491601583885">Moni Faneromenis</option>
+                                <option value="Chilia Vrysi" data-coords="37.15593865123663,25.47296047207285">Chilia Vrysi</option>
+                                <option value="Abram" data-coords="37.17292839092015,25.4804436102493">Abram</option>
+                                <option value="Pyrgos Agias" data-coords="37.18528306671102,25.519030679609912">Pyrgos Agias</option>
+                                <option value="Apollonas" data-coords="37.182193081065414,25.550916780399174">Apollonas</option>
+                            </optgroup>
+                            <optgroup label="Route 4">
+                                <option value="Chora Naxos" data-coords="37.102127580330546,25.37586429147783">Chora Naxos</option>
+                                <option value="Kato Potamia" data-coords="37.06746287960237,25.434406399718338">Kato Potamia</option>
+                                <option value="Mesi Potamia" data-coords="37.068525176364304,25.44363978088685">Mesi Potamia</option>
+                                <option value="Pano Potamia" data-coords="37.06897384946167,25.44927120207885">Pano Potamia</option>
+                                <option value="Xeimaros" data-coords="37.06158067395422,25.470138415666685">Xeimaros</option>
+                                <option value="Tsikalario" data-coords="37.06295119276365,25.472005605680625">Tsikalario</option>
+                                <option value="Chalki" data-coords="37.063221213972554,25.482342901343568">Chalki</option>
+                            </optgroup>
+                            <optgroup label="Other Villages">
+                                <option value="Glynado" data-coords="37.071375073897315,25.401774644834592">Glynado</option>
+                                <option value="Vivlos" data-coords="37.05789127788363,25.407680869093983">Vivlos (Tripodes)</option>
+                                <option value="Agios Arsenios" data-coords="37.06155771147037,25.390977308409724">Agios Arsenios</option>
+                                <option value="Agios Thalalaios" data-coords="37.0968978287206,25.419960021955713">Agios Thalalaios</option>
+                                <option value="Koyroynoxori" data-coords="37.09444361478557,25.442250959592663">Koyroynoxori</option>
+                                <option value="Melanes" data-coords="37.089879911571614,25.437629309286514">Melanes</option>
+                            </optgroup>
+                            <optgroup label="Beaches from Chora to Pyrgaki">
+                                <option value="Agios Georgios" data-coords="37.097037,25.375510">Agios Georgios</option>
+                                <option value="Agios Prokopios" data-coords="37.075008,25.350124">Agios Prokopios</option>
+                                <option value="Agia Anna" data-coords="37.069133,25.354932">Agia Anna</option>
+                                <option value="Plaka" data-coords="37.050278,25.370514">Plaka</option>
+                                <option value="Orkos" data-coords="37.027803,25.371152">Orkos</option>
+                                <option value="Mikri Vigla" data-coords="37.022023,25.371573">Mikri Vigla</option>
+                                <option value="Kastraki" data-coords="37.018963,25.374929">Kastraki</option>
+                                <option value="Glyfada" data-coords="36.996687,25.390679">Glyfada</option>
+                                <option value="Hawai" data-coords="36.979606,25.387162">Hawai</option>
+                                <option value="Mikro Alyko" data-coords="36.976814,25.386465">Mikro Alyko</option>
+                                <option value="Alyko" data-coords="36.978595,25.390343">Alyko</option>
+                                <option value="Pyrgaki" data-coords="36.977390,25.400795">Pyrgaki</option>
+                                <option value="Psili Ammos" data-coords="36.974222,25.405558">Psili Ammos</option>
+                            </optgroup>
+                            <optgroup label="Eastern Beaches">
+                                <option value="Azalas" data-coords="37.087663,25.591780">Azalas</option>
+                                <option value="Moutsouna" data-coords="37.077945,25.586885">Moutsouna</option>
+                                <option value="Ligaridia" data-coords="37.059324,25.583607">Ligaridia</option>
+                                <option value="Marathitis" data-coords="37.016921,25.570987">Marathitis</option>
+                                <option value="Psili Ammos" data-coords="37.014237,25.568236">Psili Ammos</option>
+                                <option value="Kleidos" data-coords="36.986889,25.559744">Kleidos</option>
+                                <option value="Panermos" data-coords="36.958731,25.538855">Panermos</option>
+                            </optgroup>
+                            <optgroup label="Other Beaches">
+                                <option value="Apollonas" data-coords="37.179283,25.552437">Apollonas</option>
+                                <option value="Kalantos" data-coords="36.936506,25.473537">Kalantos</option>
+                                <option value="Agiasos" data-coords="36.965753,25.425914">Agiasos</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="paymentSection" class="mt-3">
+                <h4 id="paymentTitle">Estimated Cost</h4>
+                <p id="distanceLabel" style="display: none;">Distance: <span id="distance">0</span> km</p>
+                <p>Total Price: <span id="totalPrice">0</span> €</p>
+                <button type="button" id="bookNowButton" class="btn btn-primary mt-2" disabled>Book Now</button>
+            </div>
+        </form>
+        <div id="results" class="mt-3 alert" style="display: none;"></div>
+    </div>
+
+    <footer>
+        <div class="container text-center">
+            <span>© 2025</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const OSRM_URL = 'https://router.project-osrm.org'; // Public OSRM server
+            const CHORA_NAXOS_COORDS = '37.102127580330546,25.37586429147783'; // Chora Naxos coordinates
+
+            // Reset form display
+            function resetForm() {
+                console.log('Resetting form display');
+                $('#distance').text('0');
+                $('#totalPrice').text('0');
+                $('#results').hide();
+                $('#bookNowButton').prop('disabled', true);
+            }
+
+            // Tour and Telescope Experience price calculation
+            function calculateTourPrice(duration, totalPeople) {
+                console.log(`Calculating price: duration=${duration}, totalPeople=${totalPeople}`);
+                if (!totalPeople || isNaN(totalPeople) || totalPeople < 1 || totalPeople > 7) {
+                    console.error('Invalid totalPeople:', totalPeople);
+                    return 0;
+                }
+                let price = 0;
+                if (duration == 4) {
+                    if (totalPeople <= 3) price = 240;
+                    else if (totalPeople <= 6) price = 280;
+                    else price = 300;
+                } else if (duration == 6) {
+                    if (totalPeople <= 3) price = 330;
+                    else if (totalPeople <= 6) price = 360;
+                    else price = 400;
+                } else if (duration == 8) {
+                    if (totalPeople <= 3) price = 360;
+                    else if (totalPeople <= 6) price = 400;
+                    else price = 460;
+                } else {
+                    console.error('Invalid duration:', duration);
+                    return 0;
+                }
+                console.log('Price calculated:', price);
+                return price;
+            }
+
+            // Transfer distance and price calculation
+            function calculateDistance(coords1, coords2, callback) {
+                if (!coords1 || !coords2) {
+                    console.error('Invalid coordinates:', { coords1, coords2 });
+                    callback({ distance: 0, duration: 0 });
+                    return;
+                }
+
+                const [lat1, lon1] = coords1.split(',').map(Number);
+                const [lat2, lon2] = coords2.split(',').map(Number);
+                if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) {
+                    console.error('Invalid coordinate values:', { lat1, lon1, lat2, lon2 });
+                    callback({ distance: 0, duration: 0 });
+                    return;
+                }
+
+                const coords = `${lon1},${lat1};${lon2},${lat2}`;
+                const url = `${OSRM_URL}/route/v1/driving/${coords}?overview=false`;
+
+                console.log('Fetching distance from OSRM:', url);
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    success: function(data) {
+                        if (data.code === 'Ok' && data.routes && data.routes[0]) {
+                            const distanceKm = data.routes[0].distance / 1000; // Meters to km
+                            const durationMin = Math.round(data.routes[0].duration / 60); // Seconds to minutes
+                            console.log('OSRM success:', { distanceKm, durationMin });
+                            callback({ distance: distanceKm, duration: durationMin });
+                        } else {
+                            console.error('OSRM invalid response:', data);
+                            callback({ distance: 0, duration: 0 });
+                            $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                                .text('Failed to fetch distance data. Please try again.').show();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('OSRM request failed:', { status, error });
+                        callback({ distance: 0, duration: 0 });
+                        $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                            .text('Error connecting to distance service. Please try again later.').show();
+                    }
+                });
+            }
+
+            function updateTransferPrice() {
+                const departureCoords = $('#departure option:selected').data('coords');
+                const destinationCoords = $('#destination option:selected').data('coords');
+                const passengers = parseInt($('#transferPeople').val()) || 0;
+
+                console.log('Updating transfer price:', { departureCoords, destinationCoords, passengers });
+
+                if (!departureCoords || !destinationCoords || !passengers || passengers < 1 || passengers > 7) {
+                    console.warn('Missing or invalid transfer inputs:', { departureCoords, destinationCoords, passengers });
+                    resetForm();
+                    $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                        .text('Please select valid passengers (1-7), departure, and destination for transfer.').show();
+                    return;
+                }
+
+                calculateDistance(CHORA_NAXOS_COORDS, departureCoords, function(choraResult) {
+                    const choraDistance = choraResult.distance;
+                    console.log('Chora distance:', choraDistance);
+
+                    calculateDistance(departureCoords, destinationCoords, function(tripResult) {
+                        const tripDistance = tripResult.distance;
+                        const tripDuration = tripResult.duration;
+                        console.log('Trip details:', { tripDistance, tripDuration });
+
+                        let price = Math.round(30 + tripDistance * 2.11); // Base price + 2.11€ per km
+                        if (choraDistance > 40) price += 40;
+                        else if (choraDistance > 30) price += 30;
+                        else if (choraDistance > 25) price += 20;
+                        if (tripDistance > 40) price += 20;
+                        if (passengers <= 2) price -= 20; // Apply 20€ discount for 1 or 2 passengers
+                        price = Math.max(40, price); // Ensure minimum price of 40€
+
+                        console.log('Transfer calculation:', { price, passengers });
+
+                        try {
+                            $('#distance').text(tripDistance.toFixed(2));
+                            $('#totalPrice').text(price.toFixed(2));
+                            $('#results').removeClass('alert-danger').addClass('alert-success-light')
+                                .text('Transfer cost calculated successfully!').show();
+                            $('#bookNowButton').prop('disabled', false);
+                            console.log('DOM updated:', { totalPrice: $('#totalPrice').text(), distance: $('#distance').text() });
+                        } catch (error) {
+                            console.error('Error updating DOM:', error);
+                            $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                                .text('Error displaying transfer cost. Please try again.').show();
+                        }
+                    });
+                });
+            }
+
+            // Switch between Tour, Transfer, and Telescope Experience
+            $('#serviceType').on('change', function() {
+                const serviceType = $(this).val();
+                console.log('Service type changed:', serviceType);
+                $('#tourSection, #transferSection, #telescopeSection').removeClass('active');
+                $('#distanceLabel').hide();
+                $('#paymentTitle').text('Estimated Cost');
+                resetForm();
+
+                if (serviceType === 'tour') {
+                    $('#tourSection').addClass('active');
+                    $('#paymentTitle').text('Tour Cost');
+                } else if (serviceType === 'transfer') {
+                    $('#transferSection').addClass('active');
+                    $('#distanceLabel').show();
+                    $('#paymentTitle').text('Transfer Cost');
+                } else if (serviceType === 'telescope') {
+                    $('#telescopeSection').addClass('active');
+                    $('#paymentTitle').text('Telescope Experience Cost');
+                } else {
+                    console.warn('Invalid service type selected');
+                    $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                        .text('Please select a valid service type.').show();
+                }
+            });
+
+            // Tour updates
+            $('#people, #tourDuration').on('change', function() {
+                if ($('#serviceType').val() === 'tour') {
+                    const duration = parseInt($('#tourDuration').val()) || 0;
+                    const people = parseInt($('#people').val()) || 0;
+                    console.log('Tour inputs changed:', { duration, people });
+
+                    if (!duration || !people || people < 1 || people > 7) {
+                        console.warn('Missing or invalid tour inputs:', { duration, people });
+                        resetForm();
+                        $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                            .text('Please select valid passengers (1-7) and duration for tour.').show();
+                        return;
+                    }
+
+                    const price = calculateTourPrice(duration, people);
+                    console.log('Tour calculation:', { price, people });
+
+                    try {
+                        $('#totalPrice').text(price.toFixed(2));
+                        $('#results').removeClass('alert-danger').addClass('alert-success-light')
+                            .text('Tour cost calculated successfully!').show();
+                        $('#bookNowButton').prop('disabled', false);
+                        console.log('DOM updated:', { totalPrice: $('#totalPrice').text() });
+                    } catch (error) {
+                        console.error('Error updating DOM:', error);
+                        $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                            .text('Error displaying tour cost. Please try again.').show();
+                    }
+                }
+            });
+
+            // Telescope Experience updates
+            $('#telescopePeople').on('change', function() {
+                if ($('#serviceType').val() === 'telescope') {
+                    const people = parseInt($('#telescopePeople').val()) || 0;
+                    console.log('Telescope Experience inputs changed:', { people });
+
+                    if (!people || people < 1 || people > 7) {
+                        console.warn('Missing or invalid telescope inputs:', { people });
+                        resetForm();
+                        $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                            .text('Please select valid passengers (1-7) for Telescope Experience.').show();
+                        return;
+                    }
+
+                    const price = calculateTourPrice(4, people); // Fixed 4-hour duration
+                    console.log('Telescope calculation:', { price, people });
+
+                    try {
+                        $('#totalPrice').text(price.toFixed(2));
+                        $('#results').removeClass('alert-danger').addClass('alert-success-light')
+                            .text('Telescope Experience cost calculated successfully!').show();
+                        $('#bookNowButton').prop('disabled', false);
+                        console.log('DOM updated:', { totalPrice: $('#totalPrice').text() });
+                    } catch (error) {
+                        console.error('Error updating DOM:', error);
+                        $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                            .text('Error displaying Telescope Experience cost. Please try again.').show();
+                    }
+                }
+            });
+
+            // Transfer updates
+            $('#transferPeople, #departure, #destination').on('change', function() {
+                if ($('#serviceType').val() === 'transfer') {
+                    updateTransferPrice();
+                }
+            });
+
+            // Book Now button click handler
+            $('#bookNowButton').on('click', function() {
+                console.log('Book Now button clicked');
+                const serviceType = $('#serviceType').val();
+                if (!serviceType) {
+                    $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                        .text('Please select a service type before booking.').show();
+                    return;
+                }
+
+                // Trigger Simplybook widget booking process
+                if (typeof SimplybookWidget !== 'undefined') {
+                    const widget = new SimplybookWidget({
+                        "widget_type": "iframe",
+                        "url": "https://yourcompanyname.simplybook.me",
+                        "theme": "default",
+                        "timeline": "modern",
+                        "datepicker": "top_calendar"
+                    });
+                    widget.displayPopup();
+                    console.log('Simplybook widget popup triggered');
+                } else {
+                    console.error('SimplybookWidget not loaded');
+                    $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                        .text('Booking service is currently unavailable. Please try again later.').show();
+                }
+            });
+
+            // Initial check for script loading
+            if (typeof $ === 'undefined') {
+                console.error('jQuery is not loaded');
+                $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                    .text('Error: jQuery is not loaded. Please check your internet connection.').show();
+            }
+            if (typeof bootstrap === 'undefined') {
+                console.error('Bootstrap is not loaded');
+                $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                    .text('Error: Bootstrap is not loaded. Please check your internet connection.').show();
+            }
+
+            console.log('Page loaded successfully at', new Date().toLocaleString());
+        });
+    </script>
+</body>
+</html>

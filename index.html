@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naxos Your Tour Transfer - Luxury Tours & Transfers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 400; 
+            background-color: #f7f9fc; 
+            color: #1a2a44; 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+            font-size: clamp(16px, 2.5vw, 18px); 
+        }
+        .container { 
+            max-width: 1280px; 
+            margin: auto; 
+            padding: 20px; 
+        }
+        h1, h2, h3 { 
+            font-family: 'Lora', serif; 
+            font-weight: 700; 
+            line-height: 1.3; 
+            letter-spacing: 0.02em; 
+        }
+        html { scroll-padding-top: 80px; }
+
+        /* Justify Text Globally */
+        p, li { 
+            text-align: justify; 
+            letter-spacing: 0.01em; 
+            hyphens: auto; 
+        }
+
+        /* Header */
+        .header { 
+            position: relative; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            overflow: hidden; 
+        }
+        .header-image-wrapper { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            z-index: -1; 
+            background: #000; 
+        }
+        .header-image { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            opacity: 0; 
+            transition: opacity 1.5s ease-in-out, transform 8s ease-in-out; 
+            transform: scale(1); 
+        }
+        .header-image.active { 
+            opacity: 0.8; 
+            transform: scale(1.15); 
+        }
+        .header-overlay { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(rgba(0, 50, 100, 0.5), rgba(0, 50, 100, 0.7)); 
+            z-index: 0; 
+        }
+        .header-content { 
+            position: relative; 
+            z-index: 1; 
+            color: #fff; 
+            text-align: center; 
+            padding: 20px; 
+        }
+        .header h1 { 
+            font-size: clamp(2.5rem, 5vw, 4.5rem); 
+            margin-bottom: 20px; 
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5); 
+        }
+        .header p { 
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem); 
+            margin-bottom: 30px; 
+            text-align: center; 
+            font-weight: 400; 
+        }
+        .header .highlight-text { 
+            font-size: clamp(1.4rem, 2.8vw, 1.7rem); 
+            font-weight: 600; 
+            font-style: italic; 
+            letter-spacing: 0.03em; 
+            margin-bottom: 30px; 
+        }
+        .cta-button { 
+            background: #d4af37; 
+            color: #fff; 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 25px; 
+            font-size: clamp(1rem, 2vw, 1.2rem); 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            text-decoration: none; 
+            display: inline-block; 
+        }
+        .cta-button:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+        }
+
+        /* Navigation */
+        .logo-wrapper { 
+            position: absolute; 
+            top: 30px; 
+            left: 30px; 
+            z-index: 2; 
+        }
+        .logo { 
+            width: 180px; 
+            height: auto; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); 
+        }
+        .nav { 
+            position: fixed; 
+            top: 30px; 
+            right: 30px; 
+            display: flex; 
+            align-items: center; 
+            z-index: 3; 
+            transition: all 0.3s ease; 
+        }
+        .nav a { 
+            color: #fff; 
+            text-decoration: none; 
+            margin: 0 20px; 
+            font-size: clamp(1rem, 1.8vw, 1.2rem); 
+            font-weight: 600; 
+            position: relative; 
+            transition: color 0.3s ease; 
+        }
+        .nav a::after { 
+            content: ''; 
+            position: absolute; 
+            width: 0; 
+            height: 2px; 
+            bottom: -5px; 
+            left: 0; 
+            background: #d4af37; 
+            transition: width 0.3s ease; 
+        }
+        .nav a:hover::after, .nav a:active::after { 
+            width: 100%; 
+        }
+        .nav a:hover, .nav a:active { 
+            color: #d4af37; 
+        }
+        .nav-scrolled { 
+            background: rgba(26, 42, 68, 0.9); 
+            padding: 10px 20px; 
+            border-radius: 25px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 768px) {
+            .logo { width: 120px; }
+            .logo-wrapper { top: 20px; left: 20px; }
+            .nav { 
+                top: 20px; 
+                right: 20px; 
+                flex-direction: column; 
+                background: rgba(26, 42, 68, 0.9); 
+                padding: 10px; 
+                border-radius: 10px; 
+            }
+            .nav a { 
+                margin: 8px 0; 
+                font-size: 1rem; 
+            }
+            .header h1 { font-size: clamp(2rem, 4vw, 2.5rem); }
+            .header p, .header .highlight-text { font-size: clamp(1rem, 2vw, 1.2rem); }
+        }
+
+        /* Sections */
+        .section { 
+            background: #fff; 
+            padding: 40px; 
+            margin-bottom: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+            opacity: 0; 
+            transform: translateY(20px); 
+            animation: fadeInUp 0.6s ease forwards; 
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .main, .services { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: space-between; 
+            gap: 20px; 
+        }
+        .card { 
+            flex: 1 23%; 
+            background: #fff; 
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            cursor: pointer; 
+        }
+        .card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15); 
+        }
+        .card-image-wrapper { 
+            position: relative; 
+            width: 100%; 
+            padding-top: 56.25%; 
+            overflow: hidden; 
+            border-radius: 5px; 
+            background: #000; 
+        }
+        .card-image { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            opacity: 0; 
+            transition: opacity 1.5s ease-in-out; 
+        }
+        .card-image.active { 
+            opacity: 1; 
+        }
+        .card h2 { 
+            margin: 15px 0; 
+            text-align: center; 
+            color: #1a2a44; 
+            font-size: clamp(1.3rem, 2.5vw, 1.5rem); 
+        }
+        .card-content { 
+            margin-top: 15px; 
+            font-size: clamp(0.9rem, 1.8vw, 0.95rem); 
+            font-weight: 400; 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.3s ease-out; 
+        }
+        .card-content.active { 
+            max-height: 1000px; /* Adjust as needed for content height */
+        }
+        .card-content ul { 
+            list-style: disc; 
+            padding-left: 20px; 
+        }
+        .highlight { 
+            color: #d4af37; 
+            font-weight: 600; 
+        }
+
+        /* Responsive Cards */
+        @media(max-width: 768px) { 
+            .main, .services { flex-direction: column; } 
+            .card { flex: 1 100%; margin: 15px 0; } 
+            .card-image-wrapper { padding-top: 0; height: 200px; }
+            .card-image { width: 100%; height: 100%; object-fit: cover; }
+        }
+
+        /* About Section */
+        .about-image-wrapper { 
+            position: relative; 
+            width: 100%; 
+            padding-top: 56.25%; 
+            overflow: hidden; 
+            border-radius: 12px; 
+            background: #000; 
+            margin-top: 20px; 
+        }
+        .about-image { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            opacity: 0; 
+            transition: opacity 1.5s ease-in-out; 
+        }
+        .about-image.active { 
+            opacity: 1; 
+        }
+        .about h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+        }
+        .about p {
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            font-weight: 400;
+        }
+        @media(max-width: 768px) { 
+            .about-image-wrapper { padding-top: 0; height: 250px; }
+            .about-image { width: 100%; height: 100%; object-fit: cover; }
+        }
+
+        /* Services */
+        .services h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2rem);
+        }
+        .services ul li { 
+            margin-bottom: 30px; 
+        }
+        .services ul li h3 { 
+            margin-bottom: 15px; 
+            color: #1a2a44; 
+            font-size: clamp(1.4rem, 2.5vw, 1.6rem); 
+        }
+        .services ul li p { 
+            margin-bottom: 20px; 
+            font-size: clamp(1rem, 2vw, 1.1rem); 
+            font-weight: 400; 
+        }
+
+        /* Contact */
+        .contact h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2rem);
+        }
+        .contact-options { 
+            margin-top: 25px; 
+            background: #fff; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+            border: 1px solid #e8ecef; 
+        }
+        .contact-options p { 
+            font-weight: 500; 
+            margin-bottom: 20px; 
+            color: #1a2a44; 
+            font-size: clamp(1.1rem, 2vw, 1.2rem); 
+            text-align: center; 
+        }
+        .contact-options ul { 
+            display: flex; 
+            flex-direction: row; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 20px; 
+        }
+        .contact-options li { 
+            flex: 0 0 50%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            max-width: 150px; 
+        }
+        .contact-link { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 50px; 
+            height: 50px; 
+            border-radius: 50%; 
+            color: #fff; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+            border: 2px solid #d4af37; 
+        }
+        .contact-link:hover { 
+            transform: scale(1.15); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.35); 
+        }
+        .contact-link i { 
+            font-size: clamp(1.2rem, 2vw, 1.4rem); 
+        }
+        .contact-label { 
+            opacity: 0; 
+            transform: scale(0.8); 
+            filter: blur(2px); 
+            font-size: clamp(0.9rem, 1.8vw, 1rem); 
+            font-weight: 600; 
+            padding: 6px 12px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+            text-align: center; 
+            will-change: opacity, transform, filter; 
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, filter 0.6s ease-out; 
+        }
+        .contact-label.visible { 
+            opacity: 1; 
+            transform: scale(1); 
+            filter: blur(0); 
+            animation: scaleInGlow 0.6s ease-out forwards; 
+        }
+        .cellular .contact-label { 
+            color: #4880ee; 
+            background: linear-gradient(135deg, #d4af37, #4880ee); 
+            border: 3px solid #4880ee; 
+        }
+        .whatsapp .contact-label { 
+            color: #25D366; 
+            background: linear-gradient(135deg, #d4af37, #25D366); 
+            border: 3px solid #25D366; 
+        }
+        .viber .contact-label { 
+            color: #665CAC; 
+            background: linear-gradient(135deg, #d4af37, #665CAC); 
+            border: 3px solid #665CAC; 
+        }
+        .email .contact-label { 
+            color: #e74c3c; 
+            background: linear-gradient(135deg, #d4af37, #e74c3c); 
+            border: 3px solid #e74c3c; 
+        }
+        .contact-label:nth-child(1) { animation-delay: 0.1s; }
+        .contact-label:nth-child(2) { animation-delay: 0.2s; }
+        .contact-label:nth-child(3) { animation-delay: 0.3s; }
+        .contact-label:nth-child(4) { animation-delay: 0.4s; }
+        @keyframes scaleInGlow {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.8); 
+                filter: blur(2px); 
+                box-shadow: 0 0 0 rgba(212,175,55,0); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.05); 
+                filter: blur(0); 
+                box-shadow: 0 0 15px rgba(212,175,55,0.6); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1); 
+                filter: blur(0); 
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+            }
+        }
+        .whatsapp { background: linear-gradient(135deg, #d4af37, #25D366); }
+        .whatsapp:hover { background: linear-gradient(135deg, #25D366, #d4af37); }
+        .viber { background: linear-gradient(135deg, #d4af37, #665CAC); }
+        .viber:hover { background: linear-gradient(135deg, #665CAC, #d4af37); }
+        .cellular { background: linear-gradient(135deg, #d4af37, #4880ee); }
+        .cellular:hover { background: linear-gradient(135deg, #4880ee, #d4af37); }
+        .email { background: linear-gradient(135deg, #d4af37, #e74c3c); }
+        .email:hover { background: linear-gradient(135deg, #e74c3c, #d4af37); }
+        @media (max-width: 900px) {
+            .contact-label { font-size: clamp(0.85rem, 1.7vw, 0.95rem); padding: 5.5px 11px; border-width: 2.5px; }
+            .contact-link { width: 48px; height: 48px; }
+            .contact-link i { font-size: clamp(1.15rem, 1.9vw, 1.35rem); }
+            .contact-options ul { gap: 15px; }
+        }
+        @media (max-width: 768px) {
+            .contact-label { font-size: clamp(0.8rem, 1.6vw, 0.9rem); padding: 5px 10px; border-width: 2px; }
+            .contact-link { width: 46px; height: 46px; }
+            .contact-link i { font-size: clamp(1.1rem, 1.8vw, 1.3rem); }
+            .contact-options ul { gap: 12px; }
+            .contact-options li { max-width: 130px; }
+        }
+        @media (max-width: 600px) {
+            .contact-label { font-size: clamp(0.75rem, 1.5vw, 0.85rem); padding: 4px 8px; border-width: 2px; }
+            .contact-link { width: 44px; height: 44px; }
+            .contact-link i { font-size: clamp(1rem, 1.7vw, 1.2rem); }
+            .contact-options ul { gap: 10px; }
+            .contact-options li { max-width: 120px; }
+        }
+        @media (max-width: 400px) {
+            .contact-label { font-size: clamp(0.7rem, 1.4vw, 0.75rem); padding: 3px 6px; border-width: 1.5px; }
+            .contact-link { width: 40px; height: 40px; }
+            .contact-link i { font-size: clamp(0.9rem, 1.6vw, 1.1rem); }
+            .contact-options ul { gap: 8px; }
+            .contact-options li { max-width: 100px; }
+        }
+
+        /* Footer */
+        .footer { 
+            text-align: center; 
+            padding: 30px 0; 
+            background: #1a2a44; 
+            color: #fff; 
+            font-size: clamp(0.9rem, 1.8vw, 1rem); 
+            font-weight: 400; 
+        }
+        .footer p { 
+            margin: 0; 
+            text-align: center; 
+        }
+        .trust-badges { 
+            margin-top: 20px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+        }
+        .trust-badges i { 
+            font-size: clamp(1.8rem, 3vw, 2rem); 
+        }
+        .social-links { 
+            margin-top: 15px; 
+        }
+        .social-links a { 
+            color: #fff; 
+            margin: 0 10px; 
+            font-size: clamp(1.3rem, 2.5vw, 1.5rem); 
+            transition: color 0.3s ease; 
+        }
+        .social-links a:hover { 
+            color: #d4af37; 
+        }
+
+        /* Sticky Booking CTA */
+        .sticky-cta { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            z-index: 1000; 
+        }
+        .sticky-cta a { 
+            background: #d4af37; 
+            color: #fff; 
+            padding: 15px 25px; 
+            border: none; 
+            border-radius: 25px; 
+            font-size: clamp(1rem, 1.8vw, 1.1rem); 
+            font-weight: 600; 
+            cursor: pointer; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+            transition: transform 0.3s ease; 
+            text-decoration: none; 
+            display: inline-block; 
+        }
+        .sticky-cta a:hover { 
+            transform: scale(1.1); 
+        }
+
+        /* Image Modal */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 1001; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.8); 
+            justify-content: center; 
+            align-items: center; 
+        }
+        .modal-content { 
+            max-width: 90%; 
+            max-height: 90vh; 
+            object-fit: contain; 
+        }
+        .close { 
+            position: absolute; 
+            top: 20px; 
+            right: 30px; 
+            color: #fff; 
+            font-size: clamp(1.8rem, 3vw, 2rem); 
+            cursor: pointer; 
+            transition: color 0.3s; 
+        }
+        .close:hover { 
+            color: #d4af37; 
+        }
+
+        /* Booking Form */
+        .booking h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2rem);
+        }
+        #paymentSection { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            background: #fff; 
+        }
+        #paymentSection h4 {
+            font-size: clamp(1.4rem, 2.5vw, 1.6rem);
+        }
+        #paymentSection p, .form-label {
+            font-size: clamp(1rem, 1.8vw, 1.1rem);
+            font-weight: 400;
+        }
+        .form-control {
+            font-size: clamp(0.9rem, 1.7vw, 1rem);
+            font-weight: 400;
+        }
+        .note {
+            font-size: clamp(0.85rem, 1.5vw, 0.9rem);
+            font-style: italic;
+            font-weight: 400;
+            text-align: center;
+            background: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #e8ecef;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .alert-success-light { 
+            background-color: #d4edda; 
+            border-color: #c3e6cb; 
+            color: #155724; 
+            font-size: clamp(0.9rem, 1.7vw, 1rem); 
+            font-weight: 400; 
+        }
+        .alert-danger { 
+            background-color: #f8d7da; 
+            border-color: #f5c6cb; 
+            color: #721c24; 
+            font-size: clamp(0.9rem, 1.7vw, 1rem); 
+            font-weight: 400; 
+        }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-image-wrapper">
+            <img src="header1.1.png" alt="Naxos Coast" class="header-image active">
+            <img src="header1.2.png" alt="Naxos Villages" class="header-image">
+            <img src="header1.3.png" alt="Naxos Sunset" class="header-image">
+            <img src="header1.4.png" alt="Naxos Beach" class="header-image">
+            <img src="header1.5.png" alt="Naxos Culture" class="header-image">
+            <img src="header1.6.png" alt="Naxos Adventure" class="header-image">
+        </div>
+        <div class="header-overlay"></div>
+        <div class="logo-wrapper">
+            <img src="LOGO.png" alt="Naxos Your Tour Transfer Logo" class="logo">
+        </div>
+        <div class="nav" id="mainNav">
+            <a href="#">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="header-content">
+            <h1>Discover Naxos in Unmatched Beauty</h1>
+            <p>Embark on exclusive tours and seamless transfers with our premium 7-seater van.</p>
+            <p class="highlight-text">Live the magical experience of an astronomer</p><br>
+            <a href="#optionsForm" class="cta-button" aria-label="Scroll to booking form">Book Your Adventure Now</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="about section" id="about">
+            <h1>Why Choose Naxos Your Tour Transfer?</h1>
+            <p>Indulge in the ultimate Naxos experience with our <strong>exclusive tour and transfer services</strong>. We craft <strong>bespoke journeys</strong> that unveil the island’s hidden gems, from sun-kissed beaches to ancient villages, all in the comfort of our <strong>state-of-the-art 7-seater van</strong>.</p>
+            <br>
+            <p>Our <strong>services</strong> ensure every moment is tailored to your desires, offering <strong>unparalleled safety, comfort, and style</strong>. Whether it’s a private transfer to your hotel or a curated island adventure, we transform every ride into a <strong>memorable story</strong>.</p>
+            <br>
+            <p><strong>Join us and explore Naxos like never before</strong>—where every journey is a masterpiece.</p>
+            <div class="about-image-wrapper">
+                <img src="van1.jpg" alt="Luxury Van Interior" class="about-image active">
+                <img src="van2.jpg" alt="Naxos Scenic Drive" class="about-image">
+                <img src="van3.jpg" alt="Van at Sunset" class="about-image">
+            </div>
+        </div>
+
+        <section class="main">
+            <div class="card">
+                <div class="card-image-wrapper">
+                    <img src="port1.png" alt="Port/Airport Image 1" class="card-image active">
+                    <img src="port2.png" alt="Port/Airport Image 2" class="card-image">
+                </div>
+                <h2>Transfers to and from Naxos Port/Airport</h2>
+                <div class="card-content">
+                    <p>Whether you're arriving at or departing from Naxos Port or Airport, we ensure a smooth, comfortable, and punctual ride. Enjoy door-to-door service in well-maintained vehicles, handled by professional local drivers who know the island inside out.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image-wrapper">
+                    <img src="header2.1.png" alt="Villages Image 1" class="card-image active">
+                    <img src="header2.2.png" alt="Villages Image 2" class="card-image">
+                    <img src="header2.3.png" alt="Villages Image 3" class="card-image">
+                    <img src="header2.4.png" alt="Villages Image 4" class="card-image">
+                </div>
+                <h2>Transfer to the Villages & Cultural Landmarks</h2>
+                <div class="card-content">
+                    <p><strong>Duration:</strong> Flexible | <strong>Departure:</strong> We pick you up from where you are.</p>
+                    <ul>
+                        <li><span class="highlight">Route 1</span>: Naxos Town to Apollonas through villages of Tragea.</li>
+                        <li><span class="highlight">Route 2</span>: Naxos Town to Apollonas via the west coast.</li>
+                        <li><span class="highlight">Route 3</span>: Naxos Town to Panermos beach.</li>
+                        <li>Return via scenic coastal routes.</li>
+                    </ul>
+                    <p><strong>Reserve Your Spot Today!</strong></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image-wrapper">
+                    <img src="beach1.png" alt="Beaches Image 1" class="card-image active">
+                    <img src="beach2.png" alt="Beaches Image 2" class="card-image">
+                    <img src="beach3.png" alt="Beaches Image 3" class="card-image">
+                    <img src="beach4.png" alt="Beaches Image 4" class="card-image">
+                </div>
+                <h2>Transfers to Naxos' Coastal Areas</h2>
+                <div class="card-content">
+                    <p><strong>Duration:</strong> Flexible | <strong>Departure:</strong> We pick you up from where you are.</p>
+                    <p>Discover the rugged beauty and cultural heart of eastern Naxos.</p>
+                    <ul>
+                        <li><span class="highlight">Western coast</span>: Agios Georgios, Agios Prokopios, Agia Anna, Plaka, Mikri Vigla, Kastraki, Alyko, Pyrgaki.</li>
+                        <li><span class="highlight">Eastern coast</span>: Azalas, Moutsouna, Ligaridia, Kleido, Panermos.</li>
+                        <li><span class="highlight">Other Beaches</span>: Agiasos, Kalantos, Apollonas.</li>
+                    </ul>
+                    <p><strong>Book Early for Priority Scheduling!</strong></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image-wrapper">
+                    <img src="header2.4.png" alt="Hidden Villages Image 1" class="card-image active">
+                    <img src="header2.3.png" alt="Hidden Villages Image 2" class="card-image">
+                    <img src="header2.2.png" alt="Hidden Villages Image 3" class="card-image">
+                    <img src="header2.1.png" alt="Hidden Villages Image 4" class="card-image">
+                </div>
+                <h2>Tour to the Villages & Cultural Landmarks</h2>
+                <div class="card-content">
+                    <p><strong>Duration:</strong> 4-6-8 hours | <strong>Departure:</strong> We pick you up from where you are.</p>
+                    <p>Immerse yourself in Naxos’ rich heritage with visits to ancient sites and charming villages.</p>
+                    <ul>
+                        <li><span class="highlight">Gyroulas Sangriou</span>: Explore the ancient sanctuary of Demeter.</li>
+                        <li><span class="highlight">Chalki</span>: Admire neoclassical architecture and local crafts.</li>
+                        <li><span class="highlight">Kaloxylos</span>: Visit the UNESCO-approved folklore museum.</li>
+                        <li><span class="highlight">Keramoti Cross</span>: Marvel at stunning mountain vistas.</li>
+                        <li><span class="highlight">Panagia Argokiliotis</span>: Discover a sacred religious site.</li>
+                        <li>Lunch break (not included) and optional swim at Apollonas.</li>
+                    </ul>
+                    <p><strong>Design Your Perfect Day – Reserve Now!</strong></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image-wrapper">
+                    <img src="SUN_TELESCOPE_2.png" alt="Custom Adventure Image 1" class="card-image active">
+                    <img src="STARS_TELESCOPE_2.png" alt="Custom Adventure Image 2" class="card-image">
+                </div>
+                <h2>Live the Unique Thrill of Gazing Beyond Earth</h2>
+                <div class="card-content">
+                    <p><strong>Duration:</strong> 2-3 hours | <strong>Departure:</strong> We pick you up from where you are.</p>
+                    <p>Seize the opportunity to observe the stars at night or the sun in the morning like you've never seen it before!</p>
+                    <ul>
+                        <li><span class="highlight">Custom Itinerary</span>: An event you will never forget.</li>
+                        <li><span class="highlight">Expert Guides</span>: Benefit from local knowledge and insights.</li>
+                        <li>Experience the <strong>night and day sky</strong> like never before from a beautiful Naxos setting, guided by a <strong>professional telescope</strong>.</li>
+                    </ul>
+                    <p><strong>Perfect experience for you!</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <div class="services section" id="services">
+            <h2>Our Premium Services</h2>
+            <ul>
+                <li>
+                    <h3>Private Transfers</h3>
+                    <p>Travel in style with our <strong>exclusive 7-seater van</strong>. From airport to hotel or any destination on Naxos, enjoy <strong>punctual, safe, and comfortable</strong> transfers tailored to your schedule.</p>
+                </li>
+                <li>
+                    <h3>Personalized Tours</h3>
+                    <p>Craft your dream Naxos adventure with a <strong>customized tour</strong>. Our <strong>expert local guides</strong> will lead you through stunning coastlines, ancient ruins, and charming villages for an <strong>unforgettable experience</strong>.</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="booking section" id="booking">
+            <form id="optionsForm" class="mt-4">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <p><strong>Find the experience that excites you and make it yours</strong></p><br>
+                        <label for="serviceType" class="form-label">Service Type:</label>
+                        <select id="serviceType" name="serviceType" class="form-control" required>
+                            <option value="" disabled selected>Select Service</option>
+                            <option value="tour">Tour</option>
+                            <option value="transfer">Transfer</option>
+                            <option value="telescope">Telescope Experience</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="tourSection" class="form-section">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="people" class="form-label">Passengers:</label>
+                            <select id="people" name="people" class="form-control" required>
+                                <option value="" disabled selected>Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="tourDuration" class="form-label">Duration:</label>
+                            <select id="tourDuration" name="tourDuration" class="form-control" required>
+                                <option value="" disabled selected>Select</option>
+                                <option value="4">4 Hours</option>
+                                <option value="6">6 Hours</option>
+                                <option value="8">8 Hours</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="telescopeSection" class="form-section">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="telescopePeople" class="form-label">Passengers:</label>
+                            <select id="telescopePeople" name="telescopePeople" class="form-control" required>
+                                <option value="" disabled selected>Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="transferSection" class="form-section">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="transferPeople" class="form-label">Passengers:</label>
+                            <select id="transferPeople" name="transferPeople" class="form-control" required>
+                                <option value="" disabled selected>Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="departure" class="form-label">Departure:</label>
+                            <select id="departure" name="departure" class="form-control" required>
+                                <option value="" disabled selected>Select Departure</option>
+                                <optgroup label="Route 1">
+                                    <option value="Airport" data-coords="37.08112513720107,25.3697055833444">Airport</option>
+                                    <option value="Komiaki" data-coords="37.146634813437885,25.528692821271154">Komiaki</option>
+                                    <option value="Apollonas" data-coords="37.182193081065414,25.550916780399174">Apollonas</option>
+                                </optgroup>
+                                <optgroup label="Route 2">
+                                    <option value="Chalki" data-coords="37.063221213972554,25.482342901343568">Chalki</option>
+                                    <option value="Sifones" data-coords="37.096636824585836,25.513590574260245">Sifones</option>
+                                    <option value="Keramoti" data-coords="37.10879492347779,25.516466196000675">Keramoti</option>
+                                </optgroup>
+                                <optgroup label="Route 3">
+                                    <option value="Chora Naxos" data-coords="37.10210664540318,25.375848330333373">Chora Naxos</option>
+                                    <option value="Pyrgos Agias" data-coords="37.18528306671102,25.519030679609912">Pyrgos Agias</option>
+                                    <option value="Apollonas" data-coords="37.182193081065414,25.550916780399174">Apollonas</option>
+                                </optgroup>
+                                <optgroup label="Route 4">
+                                    <option value="Chora Naxos" data-coords="37.102127580330546,25.37586429147783">Chora Naxos</option>
+                                    <option value="Chalki" data-coords="37.063221213972554,25.482342901343568">Chalki</option>
+                                </optgroup>
+                                <optgroup label="Other Villages">
+                                    <option value="Glynado" data-coords="37.071375073897315,25.401774644834592">Glynado</option>
+                                    <option value="Koyroynoxori" data-coords="37.09444361478557,25.442250959592663">Koyroynoxori</option>
+                                    <option value="Melanes" data-coords="37.089879911571614,25.437629309286514">Melanes</option>
+                                </optgroup>
+                                <optgroup label="Beaches from Chora to Pyrgaki">
+                                    <option value="Agios Georgios" data-coords="37.097037,25.375510">Agios Georgios</option>
+                                    <option value="Pyrgaki" data-coords="36.977390,25.400795">Pyrgaki</option>
+                                    <option value="Psili Ammos" data-coords="36.974222,25.405558">Psili Ammos</option>
+                                </optgroup>
+                                <optgroup label="Eastern Beaches">
+                                    <option value="Azalas" data-coords="37.087663,25.591780">Azalas</option>
+                                    <option value="Kleidos" data-coords="36.986889,25.559744">Kleidos</option>
+                                    <option value="Panermos" data-coords="36.958731,25.538855">Panermos</option>
+                                </optgroup>
+                                <optgroup label="Other Beaches">
+                                    <option value="Apollonas" data-coords="37.179283,25.552437">Apollonas</option>
+                                    <option value="Agiasos" data-coords="36.965753,25.425914">Agiasos</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="destination" class="form-label">Destination:</label>
+                            <select id="destination" name="destination" class="form-control" required>
+                                <option value="" disabled selected>Select Destination</option>
+                                <optgroup label="Route 1">
+                                    <option value="Airport" data-coords="37.08112513720107,25.3697055833444">Airport</option>
+                                    <option value="Komiaki" data-coords="37.146634813437885,25.528692821271154">Komiaki</option>
+                                    <option value="Apollonas" data-coords="37.182193081065414,25.550916780399174">Apollonas</option>
+                                </optgroup>
+                                <optgroup label="Route 2">
+                                    <option value="Chalki" data-coords="37.063221213972554,25.482342901343568">Chalki</option>
+                                    <option value="Sifones" data-coords="37.096636824585836,25.513590574260245">Sifones</option>
+                                    <option value="Keramoti" data-coords="37.10879492347779,25.516466196000675">Keramoti</option>
+                                </optgroup>
+                                <optgroup label="Route 3">
+                                    <option value="Chora Naxos" data-coords="37.10210664540318,25.375848330333373">Chora Naxos</option>
+                                    <option value="Pyrgos Agias" data-coords="37.18528306671102,25.519030679609912">Pyrgos Agias</option>
+                                    <option value="Apollonas" data-coords="37.182193081065414,25.550916780399174">Apollonas</option>
+                                </optgroup>
+                                <optgroup label="Route 4">
+                                    <option value="Chora Naxos" data-coords="37.102127580330546,25.37586429147783">Chora Naxos</option>
+                                    <option value="Tsikalario" data-coords="37.06295119276365,25.472005605680625">Tsikalario</option>
+                                    <option value="Chalki" data-coords="37.063221213972554,25.482342901343568">Chalki</option>
+                                </optgroup>
+                                <optgroup label="Other Villages">
+                                    <option value="Glynado" data-coords="37.071375073897315,25.401774644834592">Glynado</option>
+                                    <option value="Koyroynoxori" data-coords="37.09444361478557,25.442250959592663">Koyroynoxori</option>
+                                    <option value="Melanes" data-coords="37.089879911571614,25.437629309286514">Melanes</option>
+                                </optgroup>
+                                <optgroup label="Beaches from Chora to Pyrgaki">
+                                    <option value="Agios Georgios" data-coords="37.097037,25.375510">Agios Georgios</option>
+                                    <option value="Pyrgaki" data-coords="36.977390,25.400795">Pyrgaki</option>
+                                    <option value="Psili Ammos" data-coords="36.974222,25.405558">Psili Ammos</option>
+                                </optgroup>
+                                <optgroup label="Eastern Beaches">
+                                    <option value="Azalas" data-coords="37.087663,25.591780">Azalas</option>
+                                    <option value="Panermos" data-coords="36.958731,25.538855">Panermos</option>
+                                </optgroup>
+                                <optgroup label="Other Beaches">
+                                    <option value="Apollonas" data-coords="37.179283,25.552437">Apollonas</option>
+                                    <option value="Kalantos" data-coords="36.936506,25.473537">Kalantos</option>
+                                    <option value="Agiasos" data-coords="36.965753,25.425914">Agiasos</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="paymentSection" class="mt-3">
+                    <h4 id="paymentTitle">Estimated Cost</h4>
+                    <p id="distanceLabel" style="display: none;">Distance: <span id="distance">0</span> km</p>
+                    <p>Total Price: <span id="totalPrice">0</span> €</p>
+                </div>
+                <p class="note">To secure your booking, we require a non-refundable deposit of 15–20% of the final price. Please note that due to this advance payment, we are unable to offer refunds.</p>
+            </form>
+            <div id="results" class="mt-3 alert" style="display: none;"></div>
+            <br><h2>Book Your Adventure</h2>
+            <div id="bookingWidget" aria-label="Booking widget for tour and transfer reservations"></div>
+        </div>
+
+        <div class="contact section" id="contact">
+            <h2><strong>Get in Touch</strong></h2><br>
+            <p>Ready to explore Naxos? <strong>Contact us to plan your journey:</strong></p>
+            <p><strong>Email:</strong> <a href="mailto:info@naxosyourtourtransfer.com">info@naxosyourtourtransfer.com</a></p>
+            <p><strong>Phone:</strong> <a href="tel:+306980248240">+30 6980248240</a></p>
+            <div class="contact-options">
+                <p>Connect with us instantly via:</p>
+                <ul>
+                    <li>
+                        <span class="contact-label">Cellular</span>
+                        <a href="tel:+306980248240" target="_blank" class="contact-link cellular">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="contact-label">WhatsApp</span>
+                        <a href="https://wa.me/+306980248240" target="_blank" class="contact-link whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="contact-label">Viber</span>
+                        <a href="viber://chat?number=+306980248240" target="_blank" class="contact-link viber">
+                            <i class="fab fa-viber"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <span class="contact-label">Email</span>
+                        <a href="mailto:info@naxosyourtourtransfer.com" target="_blank" class="contact-link email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Naxos Your Tour Transfer. All Rights Reserved.</p>
+        <div class="trust-badges">
+            <i class="fas fa-shield-alt" title="Fully Licensed"></i>
+            <i class="fas fa-lock" title="Safe & Secure"></i>
+            <i class="fas fa-map-marker-alt" title="Local Experts"></i>
+        </div>
+        <div class="social-links">
+            <a href="https://instagram.com/naxosyourtourtransfer" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://facebook.com/naxosyourtourtransfer" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.tiktok.com/@naxosyourtourtransfer" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </div>
+
+    <div class="sticky-cta">
+        <a href="#optionsForm" aria-label="Scroll to booking form">Book Now</a>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close">×</span>
+        <img id="modalImage" class="modal-content" src="" alt="Full Image">
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const { useEffect, useRef } = React;
+
+        function BookingWidget() {
+            const widgetContainerRef = useRef(null);
+
+            useEffect(() => {
+                const script = document.createElement('script');
+                script.async = true;
+                script.src = "//widget.simplybook.it/v2/widget/widget.js";
+                script.onload = () => {
+                    new SimplybookWidget({
+                        "widget_type": "iframe",
+                        "url": "https://yourtourtransfer.simplybook.it",
+                        "theme": "adacompliant",
+                        "theme_settings": {
+                            "timeline_hide_unavailable": "1",
+                            "hide_past_days": "0",
+                            "timeline_show_end_time": "0",
+                            "timeline_modern_display": "as_slots",
+                            "display_item_mode": "block",
+                            "sb_review_image": "",
+                            "hide_img_mode": "0",
+                            "show_sidebar": "1"
+                        },
+                        "timeline": "modern",
+                        "datepicker": "top_calendar",
+                        "is_rtl": false,
+                        "app_config": {
+                            "clear_session": 0,
+                            "predefined": [],
+                            "allow_switch_to_ada": 0
+                        },
+                        "container_id": "sbw_ggmdoj"
+                    });
+                };
+                document.head.appendChild(script);
+
+                return () => {
+                    document.head.removeChild(script);
+                };
+            }, []);
+
+            return React.createElement('div', { id: 'sbw_ggmdoj', ref: widgetContainerRef, 'aria-label': 'Booking widget for tour and transfer reservations' });
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('bookingWidget'));
+        root.render(React.createElement(BookingWidget));
+
+        $(document).ready(function() {
+            const OSRM_URL = 'https://router.project-osrm.org';
+            const CHORA_NAXOS_COORDS = '37.102127580330546,25.37586429147783';
+
+            function resetForm() {
+                $('#distance').text('0');
+                $('#totalPrice').text('0');
+                $('#results').hide();
+                $('#bookNowButton').prop('disabled', true);
+            }
+
+            function calculateTourPrice(duration, totalPeople) {
+                if (!totalPeople || isNaN(totalPeople) || totalPeople < 1 || totalPeople > 7) return 0;
+                let price = 0;
+                if (duration == 4) {
+                    if (totalPeople <= 3) price = 240;
+                    else if (totalPeople <= 6) price = 280;
+                    else price = 300;
+                } else if (duration == 6) {
+                    if (totalPeople <= 3) price = 330;
+                    else if (totalPeople <= 6) price = 360;
+                    else price = 400;
+                } else if (duration == 8) {
+                    if (totalPeople <= 3) price = 360;
+                    else if (totalPeople <= 6) price = 400;
+                    else price = 460;
+                }
+                return price;
+            }
+
+            function calculateDistance(coords1, coords2, callback) {
+                if (!coords1 || !coords2) {
+                    callback({ distance: 0, duration: 0 });
+                    return;
+                }
+                const [lat1, lon1] = coords1.split(',').map(Number);
+                const [lat2, lon2] = coords2.split(',').map(Number);
+                if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) {
+                    callback({ distance: 0, duration: 0 });
+                    return;
+                }
+                const coords = `${lon1},${lat1};${lon2},${lat2}`;
+                $.ajax({
+                    url: `${OSRM_URL}/route/v1/driving/${coords}?overview=false`,
+                    method: 'GET',
+                    success: function(data) {
+                        if (data.code === 'Ok' && data.routes && data.routes[0]) {
+                            callback({
+                                distance: data.routes[0].distance / 1000,
+                                duration: Math.round(data.routes[0].duration / 60)
+                            });
+                        } else {
+                            callback({ distance: 0, duration: 0 });
+                            $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                                .text('Failed to fetch distance data.').show();
+                        }
+                    },
+                    error: function() {
+                        callback({ distance: 0, duration: 0 });
+                        $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                            .text('Error connecting to distance service.').show();
+                    }
+                });
+            }
+
+            function updateTransferPrice() {
+                const departureCoords = $('#departure option:selected').data('coords');
+                const destinationCoords = $('#destination option:selected').data('coords');
+                const passengers = parseInt($('#transferPeople').val()) || 0;
+
+                if (!departureCoords || !destinationCoords || !passengers || passengers < 1 || passengers > 7) {
+                    resetForm();
+                    $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                        .text('Please select valid passengers (1-7), departure, and destination.').show();
+                    return;
+                }
+
+                calculateDistance(CHORA_NAXOS_COORDS, departureCoords, function(choraResult) {
+                    const choraDistance = choraResult.distance;
+                    calculateDistance(departureCoords, destinationCoords, function(tripResult) {
+                        const tripDistance = tripResult.distance;
+                        let price = Math.round(30 + tripDistance * 2.11);
+                        if (choraDistance > 40) price += 40;
+                        else if (choraDistance > 30) price += 30;
+                        else if (choraDistance > 25) price += 20;
+                        if (tripDistance > 40) price += 20;
+                        if (passengers <= 2) price -= 20;
+                        price = Math.max(40, price);
+
+                        $('#distance').text(tripDistance.toFixed(2));
+                        $('#totalPrice').text(price.toFixed(2));
+                        $('#results').removeClass('alert-danger').addClass('alert-success-light')
+                            .text('Transfer cost calculated successfully!').show();
+                        $('#bookNowButton').prop('disabled', false);
+                    });
+                });
+            }
+
+            $('#serviceType').on('change', function() {
+                const serviceType = $(this).val();
+                $('#tourSection, #transferSection, #telescopeSection').removeClass('active');
+                $('#distanceLabel').hide();
+                $('#paymentTitle').text('Estimated Cost');
+                resetForm();
+
+                if (serviceType === 'tour') {
+                    $('#tourSection').addClass('active');
+                    $('#paymentTitle').text('Tour Cost');
+                } else if (serviceType === 'transfer') {
+                    $('#transferSection').addClass('active');
+                    $('#distanceLabel').show();
+                    $('#paymentTitle').text('Transfer Cost');
+                } else if (serviceType === 'telescope') {
+                    $('#telescopeSection').addClass('active');
+                    $('#paymentTitle').text('Telescope Experience Cost');
+                }
+            });
+
+            $('#people, #tourDuration').on('change', function() {
+                if ($('#serviceType').val() === 'tour') {
+                    const duration = parseInt($('#tourDuration').val()) || 0;
+                    const people = parseInt($('#people').val()) || 0;
+                    if (!duration || !people || people < 1 || people > 7) {
+                        resetForm();
+                        $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                            .text('Please select valid passengers (1-7) and duration.').show();
+                        return;
+                    }
+                    const price = calculateTourPrice(duration, people);
+                    $('#totalPrice').text(price.toFixed(2));
+                    $('#results').removeClass('alert-danger').addClass('alert-success-light')
+                        .text('Tour cost calculated successfully!').show();
+                    $('#bookNowButton').prop('disabled', false);
+                }
+            });
+
+            $('#telescopePeople').on('change', function() {
+                if ($('#serviceType').val() === 'telescope') {
+                    const people = parseInt($('#telescopePeople').val()) || 0;
+                    if (!people || people < 1 || people > 7) {
+                        resetForm();
+                        $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                            .text('Please select valid passengers (1-7).').show();
+                        return;
+                    }
+                    const price = calculateTourPrice(4, people);
+                    $('#totalPrice').text(price.toFixed(2));
+                    $('#results').removeClass('alert-danger').addClass('alert-success-light')
+                        .text('Telescope Experience cost calculated successfully!').show();
+                    $('#bookNowButton').prop('disabled', false);
+                }
+            });
+
+            $('#transferPeople, #departure, #destination').on('change', function() {
+                if ($('#serviceType').val() === 'transfer') {
+                    updateTransferPrice();
+                }
+            });
+
+            $('#bookNowButton').on('click', function() {
+                const serviceType = $('#serviceType').val();
+                if (!serviceType) {
+                    $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                        .text('Please select a service type.').show();
+                    return;
+                }
+                if (typeof SimplybookWidget !== 'undefined') {
+                    const widget = new SimplybookWidget({
+                        "widget_type": "iframe",
+                        "url": "https://yourtourtransfer.simplybook.it",
+                        "theme": "adacompliant",
+                        "theme_settings": {
+                            "timeline_hide_unavailable": "1",
+                            "hide_past_days": "0",
+                            "timeline_show_end_time": "0",
+                            "timeline_modern_display": "as_slots",
+                            "display_item_mode": "block",
+                            "sb_review_image": "",
+                            "hide_img_mode": "0",
+                            "show_sidebar": "1"
+                        },
+                        "timeline": "modern",
+                        "datepicker": "top_calendar",
+                        "is_rtl": false,
+                        "app_config": {
+                            "clear_session": 0,
+                            "predefined": [],
+                            "allow_switch_to_ada": 0
+                        }
+                    });
+                    widget.displayPopup();
+                } else {
+                    $('#results').removeClass('alert-success-light').addClass('alert-danger')
+                        .text('Booking service unavailable. Please try again later.').show();
+                }
+            });
+
+            function startSlideshow(wrapperClass, imageClass) {
+                const wrappers = document.querySelectorAll(`.${wrapperClass}`);
+                wrappers.forEach(wrapper => {
+                    const images = wrapper.querySelectorAll(`.${imageClass}`);
+                    let currentIndex = 0;
+                    function showNextImage() {
+                        images[currentIndex].classList.remove('active');
+                        currentIndex = (currentIndex + 1) % images.length;
+                        images[currentIndex].classList.add('active');
+                    }
+                    setInterval(showNextImage, 4000);
+                });
+            }
+            startSlideshow('header-image-wrapper', 'header-image');
+            startSlideshow('about-image-wrapper', 'about-image');
+            startSlideshow('card-image-wrapper', 'card-image');
+
+            const nav = document.getElementById('mainNav');
+            window.addEventListener('scroll', () => {
+                nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+            });
+
+            const imageModal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeBtn = document.querySelector('.close');
+            document.querySelectorAll('.card-image, .about-image').forEach(img => {
+                img.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    imageModal.style.display = 'flex';
+                    modalImg.src = this.src;
+                });
+            });
+            closeBtn.addEventListener('click', () => imageModal.style.display = 'none');
+            imageModal.addEventListener('click', (event) => {
+                if (event.target === imageModal) imageModal.style.display = 'none';
+            });
+
+            const contactOptions = document.querySelector('.contact-options');
+            const contactLabels = document.querySelectorAll('.contact-label');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    contactLabels.forEach(label => {
+                        label.classList.toggle('visible', entry.isIntersecting);
+                    });
+                });
+            }, { threshold: 0.5 });
+            observer.observe(contactOptions);
+
+            // Toggle card content visibility on click and close other cards
+            $('.card').on('click', function(event) {
+                // Prevent triggering the modal when clicking the card image
+                if ($(event.target).closest('.card-image').length) return;
+                
+                const $cardContent = $(this).find('.card-content');
+                const isActive = $cardContent.hasClass('active');
+                
+                // Close all card contents
+                $('.card-content').removeClass('active');
+                
+                // Toggle the active class for the clicked card if it was not active
+                if (!isActive) {
+                    $cardContent.addClass('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
