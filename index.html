@@ -22,9 +22,9 @@
             font-size: clamp(16px, 2.5vw, 18px); 
         }
         .container { 
-            max-width: 1600px; /* Increased from 1280px */
+            max-width: 1600px;
             margin: auto; 
-            padding: 30px; /* Increased from 30px */
+            padding: 30px;
         }
         h1, h2, h3 { 
             font-family: 'Lora', serif; 
@@ -199,27 +199,22 @@
             .header h1 { font-size: clamp(2rem, 4vw, 2.5rem); }
             .header p, .header .highlight-text { font-size: clamp(1rem, 2vw, 1.2rem); }
             .container { 
-                max-width: 100%; /* Full width on smaller screens */
-                padding: 20px; /* Reduced padding for smaller screens */
+                max-width: 100%;
+                padding: 20px;
             }
         }
 
-
-
-        
         /* Sections */
         .section { 
             background: #fff; 
-            padding: 10px; /* Increased from 20px */
-            margin: 40px 0; /* Increased margin for more spacing */
+            padding: 10px;
+            margin: 40px 0;
             border-radius: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
             opacity: 0; 
             transform: translateY(20px); 
             animation: fadeInUp 0.6s ease forwards; 
         }
-
-
 
         @keyframes fadeInUp {
             to { opacity: 1; transform: translateY(0); }
@@ -228,12 +223,12 @@
             display: flex; 
             flex-wrap: wrap; 
             justify-content: space-between; 
-            gap: 40px; /* Increased from 30px for wider layout */
+            gap: 40px;
         }
         .card { 
-            flex: 1 22%; /* Adjusted slightly to accommodate wider container */
+            flex: 1 22%;
             background: #fff; 
-            padding: 25px; /* Increased from 20px */
+            padding: 25px;
             border-radius: 12px; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
             transition: transform 0.3s ease, box-shadow 0.3s ease; 
@@ -279,7 +274,7 @@
             transition: max-height 0.3s ease-out; 
         }
         .card-content.active { 
-            max-height: 1000px; /* Adjust as needed for content height */
+            max-height: 1000px;
         }
         .card-content ul { 
             list-style: disc; 
@@ -294,20 +289,21 @@
         @media(max-width: 768px) { 
             .main, .services { 
                 flex-direction: column; 
-                gap: 20px; /* Reduced for smaller screens */
+                gap: 20px;
             } 
             .card { 
                 flex: 1 100%; 
                 margin: 15px 0; 
-                padding: 20px; /* Adjusted for smaller screens */
+                padding: 20px;
             } 
             .card-image-wrapper { padding-top: 0; height: 200px; }
             .card-image { width: 100%; height: 100%; object-fit: cover; }
         }
 
-
-        
         /* About Section */
+        .about { 
+            padding: 40px; /* Increased padding for better spacing */
+        }
         .about-image-wrapper { 
             position: relative; 
             width: 100%; 
@@ -338,11 +334,15 @@
             font-weight: 400;
         }
         @media(max-width: 768px) { 
+            .about { padding: 20px; } /* Adjusted for smaller screens */
             .about-image-wrapper { padding-top: 0; height: 250px; }
             .about-image { width: 100%; height: 100%; object-fit: cover; }
         }
 
         /* Services */
+        .services { 
+            padding: 40px; /* Increased padding for better spacing */
+        }
         .services h2 {
             font-size: clamp(1.8rem, 3.5vw, 2rem);
         }
@@ -359,15 +359,21 @@
             font-size: clamp(1rem, 2vw, 1.1rem); 
             font-weight: 400; 
         }
+        @media(max-width: 768px) { 
+            .services { padding: 20px; } /* Adjusted for smaller screens */
+        }
 
         /* Contact */
+        .contact { 
+            padding: 40px; /* Increased padding for better spacing */
+        }
         .contact h2 {
             font-size: clamp(1.8rem, 3.5vw, 2rem);
         }
         .contact-options { 
             margin-top: 25px; 
             background: #fff; 
-            padding: 30px; /* Increased from 30px */
+            padding: 30px;
             border-radius: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
             border: 1px solid #e8ecef; 
@@ -490,12 +496,13 @@
             .contact-options ul { gap: 15px; }
         }
         @media (max-width: 768px) {
+            .contact { padding: 20px; } /* Adjusted for smaller screens */
             .contact-label { font-size: clamp(0.8rem, 1.6vw, 0.9rem); padding: 5px 10px; border-width: 2px; }
             .contact-link { width: 46px; height: 46px; }
             .contact-link i { font-size: clamp(1.1rem, 1.8vw, 1.3rem); }
             .contact-options ul { gap: 12px; }
             .contact-options li { max-width: 130px; }
-            .contact-options { padding: 20px; } /* Adjusted for smaller screens */
+            .contact-options { padding: 20px; }
         }
         @media (max-width: 600px) {
             .contact-label { font-size: clamp(0.75rem, 1.5vw, 0.85rem); padding: 4px 8px; border-width: 2px; }
@@ -610,7 +617,7 @@
         }
         #optionsForm {
             background: #f8f9fa; 
-            padding: 30px; /* Increased from 20px */
+            padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             border: 1px solid #e8ecef;
@@ -703,7 +710,7 @@
                 font-size: clamp(1rem, 1.8vw, 1.1rem);
             }
             #optionsForm {
-                padding: 20px; /* Adjusted for smaller screens */
+                padding: 20px;
             }
         }
         @media (max-width: 600px) {
